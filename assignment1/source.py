@@ -21,7 +21,7 @@ def table():
     for eachitem in namedata.keys():
       headerset.add(eachitem)
   
-  #add student to the list of headers
+  #add the word "student" to the list of headers
   headers = ["Student"]
   if debug: print("Headers before extend: %s" % headers)
   
@@ -37,7 +37,7 @@ def table():
   columnsNeeded = len(headers)
   if debug: print("Columns needed: %d" % columnsNeeded)
   
-  #calculate max width of any one column
+  #calculate max allowable width of any one column
   import math
   maxColumnWidth = math.floor( width / columnsNeeded)
   if debug: print("Max column width: %d" % maxColumnWidth)
@@ -55,7 +55,8 @@ def table():
   
   #output header
   print(headerRow)
-
+  
+  #output empty header row
   
   #print each student, including bottom separator
   
