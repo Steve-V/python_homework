@@ -1,23 +1,42 @@
 #!/usr/bin/env python
 
-#import 
-
 def main():
-
+  #fact()
+  table()
+  
+def table():
+  
+  debug = True
+  
+  #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055 }, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 }, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005 }}
   
-  for name,namedata in Student.items():
-    print(name)
-    for eachitem,eachvalue in namedata.items():
-      print(eachitem)
-      print(eachvalue)
+  #create a set to store the various student data headers
+  headers = set([])
+  
+  #step through the data table
+  #discover the headers
+  #and put them in the set
+  for namedata in Student.values():
+    for eachitem in namedata.keys():
+      if debug: print(eachitem)
+      headers.add(eachitem)
+  
+  
+  #for name,namedata in Student.items():
+    #print(name)
+    #print(namedata)
     
 
 def fact():
   import math
   
   #get n
-  n = float( input("Value of n: ") )
+  try:
+    n = float( input("Value of n: ") )
+  except ValueError:
+    print("Error: n must be a number!")
+    return
   
   #figure out the factorial using builtins
   mathFact = math.factorial(n)
@@ -29,5 +48,5 @@ def fact():
   print("Approx  Factorial: %d \nCorrect Factorial: %d" % (calcFact,mathFact) )
 
 if __name__ == '__main__':
-  fact()
+  main()
 
