@@ -46,16 +46,16 @@ def table():
   dottedLine = '-' * width
   print(dottedLine)
   
-  #create and print header row
-  print(headers)
-  #headerRow = "|".join( ["%s" % k.center(maxColumnWidth) for k in headers] )
+  #create header row
+  if debug: print(headers)
   headerRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in headers )
-
-  #headerRow[0] = "|"
-  #headerRow[-1] = "|"
+  
+  #add leading and trailing pipe characters
+  headerRow = addPipes(headerRow)
+  
+  #output header
   print(headerRow)
 
-  #print("|" + eachname.center( int(maxColumnWidth - 2) )[: int(maxColumnWidth - 2 ) ] + "|")
   
   #print each student, including bottom separator
   
@@ -66,6 +66,12 @@ def table():
     #print(name)
     #print(namedata)
     
+
+def addPipes(datastring):
+  newData = list(datastring)
+  newData[0] = "|"
+  newData[-1] = "|"
+  return "".join(newData)
 
 def fact():
   import math
