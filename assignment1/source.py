@@ -48,19 +48,23 @@ def table():
   
   #create header row
   if debug: print(headers)
-  headerRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in headers )
+  outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in headers )
   
   #add leading and trailing pipe characters
-  headerRow = addPipes(headerRow)
+  outputRow = addPipes(outputRow)
   
   #output header
-  print(headerRow)
+  print(outputRow)
   
   #output empty header row
+  emptyHeaders = [""]*columnsNeeded
+  if debug: print(emptyHeaders)
+  outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in emptyHeaders )
+  
+  outputRow = addPipes(outputRow)
+  print(outputRow)
   
   #print each student, including bottom separator
-  
-  
   
   
   #for name,namedata in Student.items():
