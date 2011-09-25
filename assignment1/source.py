@@ -80,7 +80,11 @@ def table():
     
     if debug: print("Pre-Pipe output row: %s" % outputRow)
     
+    #add the borders and print
     print( addPipes(outputRow) )
+    
+    #finally, draw another dotted line separator
+    print(dottedLine)
 
 def addPipes(datastring):
   newData = list(datastring)
