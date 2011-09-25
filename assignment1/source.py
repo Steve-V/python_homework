@@ -6,7 +6,7 @@ def main():
   
 def table():
   
-  debug = True
+  debug = False
   
   #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055 }, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 }, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005 }}
@@ -56,21 +56,31 @@ def table():
   #output header
   print(outputRow)
   
-  #output empty header row
+  #create empty header row
   emptyHeaders = [""]*columnsNeeded
   if debug: print(emptyHeaders)
   outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in emptyHeaders )
   
-  outputRow = addPipes(outputRow)
-  print(outputRow)
+  #output empty header row and separator
+  print( addPipes(outputRow) )
+  print(dottedLine)
   
-  #print each student, including bottom separator
+  #step through the data table, build the output string for each student, and output it
   
-  
-  #for name,namedata in Student.items():
-    #print(name)
-    #print(namedata)
+  for name,namedata in Student.items():
+    outputRow = "{name:^{maxColumnWidth}}".format(name=name,maxColumnWidth=maxColumnWidth)
+    if debug: print("Name output: %s \nName Data: %s" % (outputRow, namedata))
     
+    outputData = "|".join( "{k:^{maxColumnWidth}}".format(k=namedata[eachHeader],maxColumnWidth=maxColumnWidth) for eachHeader in headerset )
+    
+    if debug: print("Output Data String: %s" % outputData)
+    
+    #combine the two items and add a pipe separator
+    outputRow = outputRow + "|" + outputData
+    
+    if debug: print("Pre-Pipe output row: %s" % outputRow)
+    
+    print( addPipes(outputRow) )
 
 def addPipes(datastring):
   newData = list(datastring)
