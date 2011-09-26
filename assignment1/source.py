@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 def main():
-  #fact()
+  fact()
   table()
   
 def table():
@@ -10,6 +10,11 @@ def table():
   
   #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055 }, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 }, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005 }}
+  
+  #convert the integers to percentage strings
+  fixIntegers(Student)
+  
+  if debug: print('BetterStudent Dict: %s' % betterStudent)
   
   #create a set to store the various student data headers
   headerset = set([])
@@ -91,6 +96,14 @@ def addPipes(datastring):
   newData[0] = "|"
   newData[-1] = "|"
   return "".join(newData)
+
+def fixIntegers(Student):
+  import decimal
+  for name, namedata in Student.items():
+    for k,v in namedata.items():
+      if type(v) == float:
+        namedata[k] = str(decimal.Decimal.from_float(v).quantize(decimal.Decimal('.01'), rounding="ROUND_DOWN") ) + "%"
+  return Student
 
 def fact():
   import math
