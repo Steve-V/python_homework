@@ -7,6 +7,7 @@ def main():
 def table():
   
   debug = False
+  useExternalCode = True
   
   #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055 }, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 }, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005 }}
@@ -35,7 +36,7 @@ def table():
   if debug: print("Headers after extend: %s" % headers)
   
   #discover the terminal width
-  width = getTerminalWidth()
+  width = getTerminalWidth(useExternalCode)
   if debug: print("Current Terminal Width: %d" % width)
   
   #discover the amount of columns needed
@@ -125,9 +126,15 @@ def fact():
   print("Approx  Factorial: %d \nCorrect Factorial: %d" % (calcFact,mathFact) )
 
 
-def getTerminalWidth():
-  #placeholder
-  return 70
+def getTerminalWidth(useExternalCode):
+  if useExternalCode:
+    from getTerminalSize import getTerminalSize
+    width = getTerminalSize()[0] - 2
+    print("Width: {}".format(width))
+    return width
+  else:
+    #use default value
+    return 70
 
 if __name__ == '__main__':
   main()
