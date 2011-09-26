@@ -5,14 +5,13 @@ def main():
   table()
   
 def table():
+  '''Draw tabular student data'''
   
-  debug = False
-  useExternalCode = True
+  #determine if the program should autodetect terminal width
+  useExternalCode = askExternalCode()
   
   #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005}}
-  
-  #Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055, "hottness":"low","confidence":"low"}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 , "hottness":"low","confidence":"high"}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005, "hottness":"high","confidence":"moderate" }}
   
   #convert the integers to percentage strings
   fixIntegers(Student)
@@ -20,40 +19,32 @@ def table():
   #create a set to store the various student data headers
   headerset = set([])
   
-  #step through the data table
-  #discover the headers
-  #and put them in the set
+  #step through the data table, discover the headers, and put them in the set
   for namedata in Student.values():
     for eachitem in namedata.keys():
       headerset.add(eachitem)
   
   #add the word "student" to the list of headers
   headers = ["Student"]
-  if debug: print("Headers before extend: %s" % headers)
   
   #extend the rest of the headers into the list
   headers.extend( list(headerset) )
-  if debug: print("Headers after extend: %s" % headers)
   
   #discover the terminal width
   width = getTerminalWidth(useExternalCode)
-  if debug: print("Current Terminal Width: %d" % width)
   
   #discover the amount of columns needed
   columnsNeeded = len(headers)
-  if debug: print("Columns needed: %d" % columnsNeeded)
   
   #calculate max allowable width of any one column
   import math
   maxColumnWidth = math.floor( width / columnsNeeded)
-  if debug: print("Max column width: %d" % maxColumnWidth)
   
   #print top dotted line
   dottedLine = '-' * width
   print(dottedLine)
   
   #create header row
-  if debug: print(headers)
   outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in headers )
   
   #add leading and trailing pipe characters
@@ -64,7 +55,6 @@ def table():
   
   #create empty header row
   emptyHeaders = [""]*columnsNeeded
-  if debug: print(emptyHeaders)
   outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in emptyHeaders )
   
   #output empty header row and separator
@@ -74,17 +64,14 @@ def table():
   #step through the data table, build the output string for each student, and output it
   
   for name,namedata in Student.items():
+    #get the student name
     outputRow = "{name:^{maxColumnWidth}}".format(name=name,maxColumnWidth=maxColumnWidth)
-    if debug: print("Name output: %s \nName Data: %s" % (outputRow, namedata))
     
+    #get the rest of the student data
     outputData = "|".join( "{k:^{maxColumnWidth}}".format(k=namedata[eachHeader],maxColumnWidth=maxColumnWidth) for eachHeader in headerset )
-    
-    if debug: print("Output Data String: %s" % outputData)
     
     #combine the two items and add a pipe separator
     outputRow = outputRow + "|" + outputData
-    
-    if debug: print("Pre-Pipe output row: %s" % outputRow)
     
     #add the borders and print
     print( addPipes(outputRow) )
@@ -93,12 +80,14 @@ def table():
     print(dottedLine)
 
 def addPipes(datastring):
+  '''Add bordering pipe characters to a line'''
   newData = list(datastring)
   newData[0] = "|"
   newData[-1] = "|"
   return "".join(newData)
 
 def fixIntegers(Student):
+  '''Round floating point numbers and add % symbol'''
   import decimal
   for name, namedata in Student.items():
     for k,v in namedata.items():
@@ -107,6 +96,7 @@ def fixIntegers(Student):
   return Student
 
 def fact():
+  '''Calculate factorial of a given number'''
   import math
   
   #get n, make sure it is a number
@@ -125,8 +115,17 @@ def fact():
   #output
   print("Approx  Factorial: %d \nCorrect Factorial: %d" % (calcFact,mathFact) )
 
+def askExternalCode():
+  shouldUseExternalCode = input("Autodetect Terminal Width? (y/N): ")
+  try:
+    if shouldUseExternalCode.lower() == 'y':
+      return True
+  except:
+    pass
+  return False
 
 def getTerminalWidth(useExternalCode):
+  '''Discover the current width of the terminal window'''
   if useExternalCode:
     from getTerminalSize import getTerminalSize
     width = getTerminalSize()[0] - 2
