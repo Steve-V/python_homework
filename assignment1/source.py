@@ -10,7 +10,9 @@ def table():
   useExternalCode = True
   
   #define the data table
-  Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055 }, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 }, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005 }}
+  Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005}}
+  
+  #Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055, "hottness":"low","confidence":"low"}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 , "hottness":"low","confidence":"high"}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005, "hottness":"high","confidence":"moderate" }}
   
   #convert the integers to percentage strings
   fixIntegers(Student)
