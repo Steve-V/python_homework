@@ -5,9 +5,11 @@ def main():
   table()
   
 def table():
+  '''Draw tabular student data'''
   
+  #determine if the program should autodetect terminal width
+  useExternalCode = askExternalCode()
   debug = False
-  useExternalCode = True
   
   #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005}}
@@ -20,9 +22,7 @@ def table():
   #create a set to store the various student data headers
   headerset = set([])
   
-  #step through the data table
-  #discover the headers
-  #and put them in the set
+  #step through the data table, discover the headers, and put them in the set
   for namedata in Student.values():
     for eachitem in namedata.keys():
       headerset.add(eachitem)
@@ -74,9 +74,11 @@ def table():
   #step through the data table, build the output string for each student, and output it
   
   for name,namedata in Student.items():
+    #get the student name
     outputRow = "{name:^{maxColumnWidth}}".format(name=name,maxColumnWidth=maxColumnWidth)
     if debug: print("Name output: %s \nName Data: %s" % (outputRow, namedata))
     
+    #get the rest of the student data
     outputData = "|".join( "{k:^{maxColumnWidth}}".format(k=namedata[eachHeader],maxColumnWidth=maxColumnWidth) for eachHeader in headerset )
     
     if debug: print("Output Data String: %s" % outputData)
@@ -93,12 +95,14 @@ def table():
     print(dottedLine)
 
 def addPipes(datastring):
+  '''Add bordering pipe characters to a line'''
   newData = list(datastring)
   newData[0] = "|"
   newData[-1] = "|"
   return "".join(newData)
 
 def fixIntegers(Student):
+  '''Round floating point numbers and add % symbol'''
   import decimal
   for name, namedata in Student.items():
     for k,v in namedata.items():
@@ -107,6 +111,7 @@ def fixIntegers(Student):
   return Student
 
 def fact():
+  '''Calculate factorial of a given number'''
   import math
   
   #get n, make sure it is a number
@@ -125,8 +130,17 @@ def fact():
   #output
   print("Approx  Factorial: %d \nCorrect Factorial: %d" % (calcFact,mathFact) )
 
+def askExternalCode():
+  shouldUseExternalCode = input("Autodetect Terminal Width? (y/N): ")
+  try:
+    if shouldUseExternalCode.lower() == 'y':
+      return True
+  except:
+    pass
+  return False
 
 def getTerminalWidth(useExternalCode):
+  '''Discover the current width of the terminal window'''
   if useExternalCode:
     from getTerminalSize import getTerminalSize
     width = getTerminalSize()[0] - 2
