@@ -17,8 +17,6 @@ def table():
   #convert the integers to percentage strings
   fixIntegers(Student)
   
-  if debug: print('BetterStudent Dict: %s' % betterStudent)
-  
   #create a set to store the various student data headers
   headerset = set([])
   
@@ -132,7 +130,6 @@ def getTerminalWidth(useExternalCode):
   if useExternalCode:
     from getTerminalSize import getTerminalSize
     width = getTerminalSize()[0] - 2
-    print("Width: {}".format(width))
     return width
   else:
     #use default value
