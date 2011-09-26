@@ -128,6 +128,7 @@ def getTerminalWidth(useExternalCode):
   '''Discover the current width of the terminal window'''
   if useExternalCode:
     from getTerminalSize import getTerminalSize
+    #don't go all the way to the edge
     width = getTerminalSize()[0] - 2
     return width
   else:
