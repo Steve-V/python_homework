@@ -130,10 +130,15 @@ def getTerminalWidth(useExternalCode):
     try:
       from getTerminalSize import getTerminalSize
     except ImportError:
-      print("\nCan't find getTerminalSize.py in current folder! \nUsing default terminal size!")
+      print("\nCan't find getTerminalSize.py in current folder! \nUsing default terminal size...")
       return 70
-    #don't go all the way to the edge
-    width = getTerminalSize()[0] - 2
+    try:
+      #don't go all the way to the edge
+      width = getTerminalSize()[0] - 2
+    except TypeError:
+      print("Can't detect terminal width in this environment!\nUsing default terminal size...")
+      return 70
+    #if everything worked fine, then...
     return width
   else:
     #use default value
