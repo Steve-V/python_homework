@@ -8,8 +8,26 @@ def main():
 
 def calc():
   '''1) Prompt the user to input two numbers and one operator among (+, -, *, /). Depending on the operator, perform the calculation and print the result.'''
-  pass
-
+  
+  #get numbers
+  numA = input("Enter first number: ")
+  numB = input("Enter second number: ")
+  
+  #get operator
+  operator = input("Enter operation: ").strip()
+  
+  if operator == "+":
+    print(numA + numB)
+  elif operator == "-":
+    print(numA - numB)
+  elif operator == "*":
+    print(numA * numB)
+  elif operator == "/":
+    print(numA / numB)
+    #FIXME: must handle numB = 0 ==== division by zero
+  else:
+    print("Unrecognized operator")
+  return()
 
 def guess():
   '''2) Write a program to generate a random number(Rnumber) between 1 and 10. (Use randint method from random module). Ask for user to guess a number(Gnumber)
