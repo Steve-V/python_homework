@@ -9,9 +9,12 @@ def table():
   
   #determine if the program should autodetect terminal width
   useExternalCode = askExternalCode()
+  debug = False
   
   #define the data table
   Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005}}
+  
+  #Student = { "John" : { "join_date" : "05/03/2011", "Percent" : 80.055, "hottness":"low","confidence":"low"}, "Don" : { "join_date" : "05/10/2011", "Percent" : 75.06777 , "hottness":"low","confidence":"high"}, "Smith" : { "join_date" : "04/04/2011", "Percent" : 85.8005, "hottness":"high","confidence":"moderate" }}
   
   #convert the integers to percentage strings
   fixIntegers(Student)
@@ -26,25 +29,31 @@ def table():
   
   #add the word "student" to the list of headers
   headers = ["Student"]
+  if debug: print("Headers before extend: %s" % headers)
   
   #extend the rest of the headers into the list
   headers.extend( list(headerset) )
+  if debug: print("Headers after extend: %s" % headers)
   
   #discover the terminal width
   width = getTerminalWidth(useExternalCode)
+  if debug: print("Current Terminal Width: %d" % width)
   
   #discover the amount of columns needed
   columnsNeeded = len(headers)
+  if debug: print("Columns needed: %d" % columnsNeeded)
   
   #calculate max allowable width of any one column
   import math
   maxColumnWidth = math.floor( width / columnsNeeded)
+  if debug: print("Max column width: %d" % maxColumnWidth)
   
   #print top dotted line
   dottedLine = '-' * width
   print(dottedLine)
   
   #create header row
+  if debug: print(headers)
   outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in headers )
   
   #add leading and trailing pipe characters
@@ -55,6 +64,7 @@ def table():
   
   #create empty header row
   emptyHeaders = [""]*columnsNeeded
+  if debug: print(emptyHeaders)
   outputRow = "|".join( "{k:^{maxColumnWidth}}".format(k=k,maxColumnWidth=maxColumnWidth) for k in emptyHeaders )
   
   #output empty header row and separator
@@ -66,12 +76,17 @@ def table():
   for name,namedata in Student.items():
     #get the student name
     outputRow = "{name:^{maxColumnWidth}}".format(name=name,maxColumnWidth=maxColumnWidth)
+    if debug: print("Name output: %s \nName Data: %s" % (outputRow, namedata))
     
     #get the rest of the student data
     outputData = "|".join( "{k:^{maxColumnWidth}}".format(k=namedata[eachHeader],maxColumnWidth=maxColumnWidth) for eachHeader in headerset )
     
+    if debug: print("Output Data String: %s" % outputData)
+    
     #combine the two items and add a pipe separator
     outputRow = outputRow + "|" + outputData
+    
+    if debug: print("Pre-Pipe output row: %s" % outputRow)
     
     #add the borders and print
     print( addPipes(outputRow) )
@@ -127,18 +142,8 @@ def askExternalCode():
 def getTerminalWidth(useExternalCode):
   '''Discover the current width of the terminal window'''
   if useExternalCode:
-    try:
-      from getTerminalSize import getTerminalSize
-    except ImportError:
-      print("\nCan't find getTerminalSize.py in current folder! \nUsing default terminal size...")
-      return 70
-    try:
-      #don't go all the way to the edge
-      width = getTerminalSize()[0] - 2
-    except TypeError:
-      print("Can't detect terminal width in this environment!\nUsing default terminal size...")
-      return 70
-    #if everything worked fine, then...
+    from getTerminalSize import getTerminalSize
+    width = getTerminalSize()[0] - 2
     return width
   else:
     #use default value
