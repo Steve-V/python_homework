@@ -92,7 +92,7 @@ def fixIntegers(Student):
   for name, namedata in Student.items():
     for k,v in namedata.items():
       if type(v) == float:
-        namedata[k] = str(decimal.Decimal.from_float(v).quantize(decimal.Decimal('.01'), rounding="ROUND_DOWN") ) + "%"
+        namedata[k] = str(decimal.Decimal(str(v)).quantize(decimal.Decimal('.01'), rounding="ROUND_DOWN") ) + "%"
   return Student
 
 def fact():
