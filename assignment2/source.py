@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 def main():
-  #calc()
-  #guess()
+  calc()
+  guess()
   stack()
   
 
@@ -52,7 +52,7 @@ def guess():
   #set up the game
   import random
   correct = random.randint(1,10)
-  guess = 12
+  guess = None
   attempts = 0
   
   while guess != correct:
@@ -72,6 +72,7 @@ def guess():
     if guess > correct: print("Your guess is too high!")
     if guess < correct: print("Your guess is too low!")
   
+  #if correct number guessed
   print("Correct! Wow! First guess!") if attempts == 1 else print("Correct! You used {} guesses!".format(attempts) )
 
 
