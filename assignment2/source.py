@@ -75,7 +75,8 @@ def stack():
   c) If pop, display the element popped and the new list.
   d) Push/Pop operations to be carried out till the user quits
   '''
-  pass
+  
+  
 
 
 
