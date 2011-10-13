@@ -5,14 +5,14 @@
 def main():
   
   reverseString()
-  swapVariables()
+  swapVariables(5,1)
   isPrime()
   fibonacci()
 
 
-def reverseString():
+def reverseString(someString = "Greeting"):
   '''Write a function to reverse a string provided by the user. Display the string before and after reversing. The default string value is “Greeting”.'''
-  pass
+  print("Old string: {}   New string: {}".format(someString,someString[::-1] ) )
 
 
 def swapVariables(a,b):
