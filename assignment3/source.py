@@ -15,9 +15,9 @@ def reverseString():
   pass
 
 
-def swapVariables():
+def swapVariables(a,b):
   '''Write a function to swap two variables “a and b”. Variables can be int, string, list or dictionaries.'''
-  pass
+  return b,a
 
 
 def isPrime():
