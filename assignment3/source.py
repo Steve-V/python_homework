@@ -4,10 +4,10 @@
 
 def main():
   
-  reverseString()
-  swapVariables(5,1)
-  isPrime()
-  fibonacci()
+  reverseString("5318008")
+  #swapVariables(5,1)
+  #isPrime()
+  #fibonacci()
 
 
 def reverseString(someString = "Greeting"):
