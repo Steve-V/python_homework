@@ -22,6 +22,7 @@ def swapVariables(a,b):
 
 def isPrime():
   '''Return 1 if an argument is a prime number and 0 otherwise'''
+  '''all primes are integers, that makes things nice'''
   pass
 
 
