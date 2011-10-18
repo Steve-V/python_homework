@@ -4,9 +4,9 @@
 
 def main():
   
-  #howMany = int( input("Max Prime: ") )
+  howMany = int( input("Max Prime: ") )
   
-  howMany = 10000000
+  #howMany = 10000000
   
   print( rwh_primes(howMany) )
   

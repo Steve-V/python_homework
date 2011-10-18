@@ -10,8 +10,10 @@ def main():
   print( fibonacci( input("Fibonacci sequence length: ") ) )
 
 
-def reverseString(someString = "Greeting"):
+def reverseString(someString):
   '''Write a function to reverse a string provided by the user. Display the string before and after reversing. The default string value is “Greeting”.'''
+  if not someString:
+    someString = "Greeting"
   print("Old string: {}   New string: {}".format(someString,someString[::-1] ) )
   return someString[::-1]
 
