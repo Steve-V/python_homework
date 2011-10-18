@@ -5,7 +5,7 @@
 def main():
   
   reverseString( input("String to reverse: " ) )
-  swapVariables(5,1)
+  print( "Reversing ('A','B'): {}".format( swapVariables("A","B") ) )
   print( isPrime( input("Enter a prime: ") ) )
   print( fibonacci( input("Fibonacci sequence length: ") ) )
 
@@ -29,11 +29,9 @@ def isPrime(candidate):
   try:
     candidate = int(candidate)
   except ValueError:
-    print("Input must be a positive integer!")
-    return
+    return("Input must be a positive integer!")
   if candidate < 1:
-    print("Input must be a positive integer!")
-    return
+    return("Input must be a positive integer!")
   
   # see whether we've precalculated this prime
   if candidate < 10000000:
@@ -49,9 +47,9 @@ def isPrime(candidate):
   # if not, we're going to be here for a while
   goAnyway = input("Warning!  This calculation may take a long time!\nContinue anyway? [y/N]: ")
   if goAnyway.lower() != 'y':
-    return
+    return("Calculation aborted")
   
-  for i in range(10000000, candidate):
+  for i in range(3, candidate):
     if candidate % i == 0:
       return 0
   return 1
@@ -60,12 +58,15 @@ def fibonacci(n):
   '''Write a recursive program to generate Fibonacci series for n numbers'''
   
   # cast to int
-  n = int(n)
+  try:
+    n = int(n)
+  except ValueError:
+    return("Input must be a positive integer!")
   
   # breakout criteria
   if n == 0:
     return("Empty list!")
-  if n == 1:
+  if n == 1:  
     return [0]
   if n == 2:
     return [0,1]
