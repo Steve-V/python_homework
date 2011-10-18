@@ -4,10 +4,10 @@
 
 def main():
   
-  #reverseString("5318008")
-  #swapVariables(5,1)
-  #print( isPrime( input("Enter a prime: ") ) )
-  fibonacci()
+  reverseString( input("String to reverse: " ) )
+  swapVariables(5,1)
+  print( isPrime( input("Enter a prime: ") ) )
+  print( fibonacci( input("Fibonacci sequence length: ") ) )
 
 
 def reverseString(someString = "Greeting"):
@@ -22,9 +22,8 @@ def swapVariables(a,b):
 
 
 def isPrime(candidate):
-  '''Return 1 if an argument is a prime number and 0 otherwise'''
-  '''all primes are integers, that makes things nice'''
-  #first, see if we can calculate this number at all
+  '''Return 1 if an argument is a prime number and 0 otherwise
+  This is not the "correct" thing to do - in Python you should be returning True and False rather than 1 and 0, oh well'''
   
   # primes are only positive ints
   try:
@@ -38,14 +37,17 @@ def isPrime(candidate):
   
   # see whether we've precalculated this prime
   if candidate < 10000000:
-    from primes import primeset
-    if candidate in primeset:
-      return 1  # should be return True
-    else:
-      return 0  # should be return False
-  
+    try:
+      from primes import primeset
+      if candidate in primeset:
+        return 1  # should be return True
+      else:
+        return 0  # should be return False
+    except ImportError:
+      pass
+    
   # if not, we're going to be here for a while
-  goAnyway = input("Warning!  This calculation may take a long time! Continue anyway? [y/N]: ")
+  goAnyway = input("Warning!  This calculation may take a long time!\nContinue anyway? [y/N]: ")
   if goAnyway.lower() != 'y':
     return
   
@@ -56,14 +58,23 @@ def isPrime(candidate):
 
 def fibonacci(n):
   '''Write a recursive program to generate Fibonacci series for n numbers'''
-  if type(n) == int:
-    # breakout criteria
-    if n == 1:
-      return [0]
-    if n == 2:
-      return [0,1]
-    
-    nextFib = fibonacci
+  
+  # cast to int
+  n = int(n)
+  
+  # breakout criteria
+  if n == 0:
+    return("Empty list!")
+  if n == 1:
+    return [0]
+  if n == 2:
+    return [0,1]
+  
+  # get next lower fibonacci sequence and add
+  fibList = fibonacci(n-1)
+  fibList.append( fibList[-1] + fibList[-2] )
+  
+  return fibList
 
   
 if __name__ == '__main__':
