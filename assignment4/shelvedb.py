@@ -33,12 +33,3 @@ class ToolShelf:
             returnDict[ eachKey ] = self.db[eachKey]
         self.db.close()
         return returnDict
-
-
-#def main():
-    
-    #pass
-    
-    
-#if __name__ == '__main__':
-    #main()
