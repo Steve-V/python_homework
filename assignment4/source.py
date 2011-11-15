@@ -46,7 +46,7 @@ class TestRectangle(unittest.TestCase):
     
     
 def main():
-    unittest.main()
+    unittest.main(verbosity=2)
     
     
     
