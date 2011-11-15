@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-import shelve
+import csv
 
 
-class ToolShelf:
+class ToolCsv:
     # Setup
     def __init__(self):
         self.addTool("Hammer",76,11.99)
@@ -11,25 +11,15 @@ class ToolShelf:
         self.addTool("Screwdriver",106,6.99)
         self.addTool("Wrench",34,7.50)
     
-    def addTool(self, toolnameIn, amountIn, priceIn):
-        self.db = shelve.open("shelve.db")
-        self.db[ str(toolnameIn) ] = {"toolname":toolnameIn, "amount":amountIn, "price":priceIn}
+    def addTool(self, toolname, amount, price):
+        self.db = csvwriter.open("csv.db")
+        self.db.writeline([toolname, amount, price])
         self.db.close()
-        return
     
-    def getToolData(self, toolname):
-        self.db = shelve.open("shelve.db")
-        try:
-            data = self.db[toolname]
-        except KeyError:
-            return None
-        self.db.close()
-        return data
-    
-    def getAllTools(self):
-        self.db = shelve.open("shelve.db")
-        returnDict = {}
-        for eachKey in self.db.keys():
-            returnDict[ eachKey ] = self.db[eachKey]
+    def showAllTools(self):
+        self.db = csvreader.open("csv.db")
+        for eachLine in self.db.readlines():
+            for eachItem in eachLine:
+                print("{k:^{maxColumnWidth}}".format(k=eachItem,maxColumnWidth=maxColumnWidth) ) )
         self.db.close()
         return returnDict
