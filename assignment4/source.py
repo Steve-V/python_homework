@@ -2,11 +2,17 @@
 
 import unittest
 
+class outOfRangeException(Exception):
+    pass
+
+class NANException(Exception):
+    pass
+
 class Rectangle:
     # Setup
-    def __init__(self,length=1,width=1):
-        self.__length = length
-        self.__width = width
+    def __init__(self,length=1.0,width=1.0):
+        self.setLength(length)
+        self.setWidth(width)
     
     # Get and set
     def setLength(self, new):
@@ -38,7 +44,6 @@ class TestRectangle(unittest.TestCase):
         '''Checking area of rectangle'''
         self.assertEqual(self.r.area(), 10)
     
-    def 
     
 def main():
     unittest.main()
