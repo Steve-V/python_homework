@@ -27,6 +27,7 @@ def addNewTool(t):
     return
 
 def getInventoryCost(t):
+    '''Calculate total cost of inventory'''
     grandTotal = 0.0
     for eachItem in t.getAllTools().values():
         
@@ -42,6 +43,7 @@ def getInventoryCost(t):
     
 
 def lookupTool(t):
+    '''Lookup data on a single tool'''
     requestedTool = input("Tool name: ")
     
     toolData = t.getToolData(requestedTool)
@@ -53,6 +55,7 @@ def lookupTool(t):
     
 
 def runTests(t):
+    '''Test each function'''
     
     runAgain = True
     while(runAgain):
