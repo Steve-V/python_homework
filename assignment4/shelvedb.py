@@ -12,22 +12,26 @@ class ToolShelf:
         self.addTool("Wrench",34,7.50)
     
     def addTool(self, toolnameIn, amountIn, priceIn):
-        db = shelve.open("shelve.db")
-        db[ str(toolnameIn) ] = {"toolname":toolnameIn, "amount":amountIn, "price":priceIn}
-        db.close()
+        self.db = shelve.open("shelve.db")
+        self.db[ str(toolnameIn) ] = {"toolname":toolnameIn, "amount":amountIn, "price":priceIn}
+        self.db.close()
         return
     
     def getToolData(self, toolname):
-        db = shelve.open("shelve.db")
-        return db[toolname]
-        db.close()
+        self.db = shelve.open("shelve.db")
+        try:
+            data = self.db[toolname]
+        except KeyError:
+            return None
+        self.db.close()
+        return data
     
     def getAllTools(self):
-        db = shelve.open("shelve.db")
+        self.db = shelve.open("shelve.db")
         returnDict = {}
-        for eachKey in db.keys():
-            returnDict[ db[toolname] ] = {"toolname":db[toolname], "amount":db[amount], "price":db[price]}
-        db.close()
+        for eachKey in self.db.keys():
+            returnDict[ eachKey ] = self.db[eachKey]
+        self.db.close()
         return returnDict
 
 
