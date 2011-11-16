@@ -3,16 +3,24 @@
 
 #import 
 
-def getCommand():
+def getCommand(whatType):
     '''Find out what the user wants us to do'''
     
-    command = input("(1) - Add new tool\n(2) - Get inventory cost\n(3) - Tool Lookup\n(4) - Exit\nCommand: ")
+    # Set up the question
+    if whatType = "shelve":
+        ask = "(1) - Add new tool\n(2) - Get inventory cost\n(3) - Tool Lookup\n(4) - Exit\nCommand: "
+        valid = ['1','2','3','4']
+    else:
+        ask = "(1) - Add new tool\n(2) - Display tools as table\n(3) - Exit\nCommand:"
+        valid = ['1','2','3']
+    
+    # Talk  to the user
+    command = input(ask)
     
     # Validity check
-    if command.strip() not in ['1','2','3','4']:
-        return '4'
+    if command.strip() not in valid:
+        return None
     return command
-
 
 def addNewTool(t):
     '''Given a tool name, quantity, and price, insert that tool into the database'''
@@ -54,8 +62,8 @@ def lookupTool(t):
         print("Tool not found!")
     
 
-def runTests(t):
-    '''Test each function'''
+def runShelveTests(t):
+    '''Test each function with shelve'''
     
     runAgain = True
     while(runAgain):
@@ -73,13 +81,31 @@ def runTests(t):
             runAgain = False
         
     
+def runCsvTests(c):
+    '''Test each function with Csv'''
+    
+    runAgain = True
+    while(runAgain):
+        
+        # Get input about what to do next
+        nextCommand = getCsvCommand()
+        
+        if nextCommand == '1':
+            addNewTool(t)
+        elif nextCommand == '2':
+            t.showAllTools()
+        else:
+            runAgain = False
+    
 
 def main():
     
     from shelvedb import ToolShelf
     t = ToolShelf()
-    runTests(t)
-    
+    runShelveTests(t)
+    from filedb import ToolCsv
+    c = ToolCsv()
+    runCsvTests()
     
     
     
