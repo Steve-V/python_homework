@@ -14,7 +14,7 @@ def getCommand(whatType):
         ask = "(1) - Add new tool\n(2) - Display tools as table\n(3) - Exit\nCommand: "
         valid = ['1','2','3']
     
-    # Talk  to the user
+    # Talk to the user
     command = input(ask)
     
     # Validity check
@@ -62,53 +62,42 @@ def lookupTool(t):
         print("Tool not found!")
     
 
-def runShelveTests(t):
-    '''Test each function with shelve'''
+def runTests(t,whichTests):
+    '''Test each function - now with polymorphism!'''
     
     runAgain = True
     while(runAgain):
         
         # Get input about what to do next
-        nextCommand = getCommand('shelve')
+        nextCommand = getCommand(whichTests)
         
         if nextCommand == '1':
             addNewTool(t)
         elif nextCommand == '2':
-            getInventoryCost(t)
+            if whichTests == 'csv':
+                t.showAllTools()
+            else:
+                getInventoryCost(t)
         elif nextCommand == '3':
-            lookupTool(t)
+            if whichTests == 'csv':
+                runAgain = False
+            else:
+                lookupTool(t)
         else:
             runAgain = False
         
-    
-def runCsvTests(c):
-    '''Test each function with Csv'''
-    
-    runAgain = True
-    while(runAgain):
-        
-        # Get input about what to do next
-        nextCommand = getCommand('csv')
-        
-        if nextCommand == '1':
-            addNewTool(c)
-        elif nextCommand == '2':
-            c.showAllTools()
-        else:
-            runAgain = False
-    
 
 def main():
     
     # Shelve
     from shelvedb import ToolShelf
     t = ToolShelf()
-    runShelveTests(t)
+    runTests(t,'shelve')
     
     # CSV
     from filedb import ToolCsv
     c = ToolCsv()
-    runCsvTests(c)
+    runTests(c,'csv')
     
     
     
