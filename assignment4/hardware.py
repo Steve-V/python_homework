@@ -7,11 +7,11 @@ def getCommand(whatType):
     '''Find out what the user wants us to do'''
     
     # Set up the question
-    if whatType = "shelve":
+    if whatType == "shelve":
         ask = "(1) - Add new tool\n(2) - Get inventory cost\n(3) - Tool Lookup\n(4) - Exit\nCommand: "
         valid = ['1','2','3','4']
     else:
-        ask = "(1) - Add new tool\n(2) - Display tools as table\n(3) - Exit\nCommand:"
+        ask = "(1) - Add new tool\n(2) - Display tools as table\n(3) - Exit\nCommand: "
         valid = ['1','2','3']
     
     # Talk  to the user
@@ -69,7 +69,7 @@ def runShelveTests(t):
     while(runAgain):
         
         # Get input about what to do next
-        nextCommand = getCommand()
+        nextCommand = getCommand('shelve')
         
         if nextCommand == '1':
             addNewTool(t)
@@ -88,24 +88,27 @@ def runCsvTests(c):
     while(runAgain):
         
         # Get input about what to do next
-        nextCommand = getCsvCommand()
+        nextCommand = getCommand('csv')
         
         if nextCommand == '1':
-            addNewTool(t)
+            addNewTool(c)
         elif nextCommand == '2':
-            t.showAllTools()
+            c.showAllTools()
         else:
             runAgain = False
     
 
 def main():
     
+    # Shelve
     from shelvedb import ToolShelf
     t = ToolShelf()
     runShelveTests(t)
+    
+    # CSV
     from filedb import ToolCsv
     c = ToolCsv()
-    runCsvTests()
+    runCsvTests(c)
     
     
     
