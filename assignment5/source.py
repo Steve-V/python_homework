@@ -1,17 +1,12 @@
 #!/usr/bin/env python
 
 import wx
-
-def addButtons(win):
-    button1 = wx.Button(win,label="1")
     
     
-class calc(wx.Frame):
+class calc(parent):
   
     def __init__(self):
-        super(calc, self).__init__(None, title="Calculator", 
-            size=(300, 250))
-            
+        #super(calc, self).__init__(None, title="SVCalc", size=(300, 250))
         self.drawCalc()
         self.Show()     
         
@@ -21,31 +16,39 @@ class calc(wx.Frame):
         self.display = wx.TextCtrl(self, style=wx.TE_RIGHT)
         vbox.Add(self.display, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=5)
         gridbox = wx.GridSizer(4, 4, 5, 5)
-
-        gridbox.AddMany( [
-            (wx.Button(self, label='7'), 0, wx.EXPAND),
-            (wx.Button(self, label='8'), 0, wx.EXPAND),
-            (wx.Button(self, label='9'), 0, wx.EXPAND),
-            (wx.Button(self, label='/'), 0, wx.EXPAND),
-            (wx.Button(self, label='4'), 0, wx.EXPAND),
-            (wx.Button(self, label='5'), 0, wx.EXPAND),
-            (wx.Button(self, label='6'), 0, wx.EXPAND),
-            (wx.Button(self, label='*'), 0, wx.EXPAND),
-            (wx.Button(self, label='1'), 0, wx.EXPAND),
-            (wx.Button(self, label='2'), 0, wx.EXPAND),
-            (wx.Button(self, label='3'), 0, wx.EXPAND),
-            (wx.Button(self, label='-'), 0, wx.EXPAND),
-            (wx.Button(self, label='0'), 0, wx.EXPAND),
-            (wx.Button(self, label='.'), 0, wx.EXPAND),
-            (wx.Button(self, label='='), 0, wx.EXPAND),
-            (wx.Button(self, label='+'), 0, wx.EXPAND) ])
-
+        
+        # Create buttons
+        b0 = (wx.Button(self, label='0'), 0, wx.EXPAND)
+        b1 = (wx.Button(self, label='1'), 0, wx.EXPAND)
+        b2 = (wx.Button(self, label='2'), 0, wx.EXPAND)
+        b3 = (wx.Button(self, label='3'), 0, wx.EXPAND)
+        b4 = (wx.Button(self, label='4'), 0, wx.EXPAND)
+        b5 = (wx.Button(self, label='5'), 0, wx.EXPAND)
+        b6 = (wx.Button(self, label='6'), 0, wx.EXPAND)
+        b7 = (wx.Button(self, label='7'), 0, wx.EXPAND)
+        b8 = (wx.Button(self, label='8'), 0, wx.EXPAND)
+        b9 = (wx.Button(self, label='9'), 0, wx.EXPAND)
+        b0 = (wx.Button(self, label='0'), 0, wx.EXPAND)
+        bdivide = (wx.Button(self, label='/'), 0, wx.EXPAND)
+        bmultiply = (wx.Button(self, label='*'), 0, wx.EXPAND)
+        bsubtract = (wx.Button(self, label='-'), 0, wx.EXPAND)
+        bdecimal = (wx.Button(self, label='.'), 0, wx.EXPAND)
+        bequals = (wx.Button(self, label='='), 0, wx.EXPAND)
+        badd = (wx.Button(self, label='+'), 0, wx.EXPAND)
+        
+        # Add buttons to grid, in order
+        gridbox.AddMany( [b7, b8, b9, bdivide, b4, b5, b6, bmultiply, b1, b2, b3, bsubtract, b0, bdecimal, bequals, badd] )
+        
+        # Add gridbox to the background
         vbox.Add(gridbox, proportion=1, flag=wx.EXPAND)
         self.SetSizer(vbox)
 
+    def bindButtons(win):
+        pass
 
 def main():
     app = wx.App()
+    frame = wx.Frame(None, title = "SVCalc", size=(300,250) )
     startnew = calc()
     app.MainLoop()
     
