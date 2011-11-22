@@ -3,10 +3,10 @@
 import wx
     
     
-class calc(parent):
+class calc(wx.Frame):
   
     def __init__(self):
-        #super(calc, self).__init__(None, title="SVCalc", size=(300, 250))
+        super(calc, self).__init__(None, title="SVCalc", size=(300, 250))
         self.drawCalc()
         self.Show()     
         
@@ -48,7 +48,6 @@ class calc(parent):
 
 def main():
     app = wx.App()
-    frame = wx.Frame(None, title = "SVCalc", size=(300,250) )
     startnew = calc()
     app.MainLoop()
     
