@@ -10,37 +10,40 @@ class calc(wx.Frame):
         self.drawCalc()
         self.Show()     
     
-    def pushb0(self):
-        self.display.SetValue("0")
-        # also need to create the part that does the math
-    
+    def doMath(self, num1, num2, oper):
+        '''Math module'''
+        try:
+            num1 = float(num1)
+            num2 = float(num2)
+        except:
+            return None
+        
+        if oper == "+":
+            return num1+num2
+        if oper == "-":
+            return num1-num2
+        if oper == "*":
+            return num1*num2
+        if oper == "/":
+            if num2 == 0:
+                return None
+            else:
+                return num1/num2
+        
     def onClick(self, event):
+        wx.MessageBox("Bind Event not yet implemented")
         print(event)
     
-    def pushOther(self):
-        b1 = (wx.Button(self, label='1'), 0, wx.EXPAND)
-        b2 = (wx.Button(self, label='2'), 0, wx.EXPAND)
-        b3 = (wx.Button(self, label='3'), 0, wx.EXPAND)
-        b4 = (wx.Button(self, label='4'), 0, wx.EXPAND)
-        b5 = (wx.Button(self, label='5'), 0, wx.EXPAND)
-        b6 = (wx.Button(self, label='6'), 0, wx.EXPAND)
-        b7 = (wx.Button(self, label='7'), 0, wx.EXPAND)
-        b8 = (wx.Button(self, label='8'), 0, wx.EXPAND)
-        b9 = (wx.Button(self, label='9'), 0, wx.EXPAND)
-        b0 = (wx.Button(self, label='0'), 0, wx.EXPAND)
-        bdivide = (wx.Button(self, label='/'), 0, wx.EXPAND)
-        bmultiply = (wx.Button(self, label='*'), 0, wx.EXPAND)
-        bsubtract = (wx.Button(self, label='-'), 0, wx.EXPAND)
-        bdecimal = (wx.Button(self, label='.'), 0, wx.EXPAND)
-        bequals = (wx.Button(self, label='='), 0, wx.EXPAND)
-        badd = (wx.Button(self, label='+'), 0, wx.EXPAND)
-    
-    
     def drawCalc(self):
-
+        
+        # Draw the initial layout
         vbox = wx.BoxSizer(wx.VERTICAL)
-        self.display = wx.TextCtrl(self, style=wx.TE_RIGHT)
+        
+        # Didn't have time to finish this
+        self.display = wx.TextCtrl(self, style=wx.TE_RIGHT,value="Not Yet Implemented")
         vbox.Add(self.display, flag=wx.EXPAND|wx.TOP|wx.BOTTOM, border=5)
+        
+        # Build a grid to hold all the other buttons
         gridbox = wx.GridSizer(4, 4, 5, 5)
         
         # Create buttons - I hate this
