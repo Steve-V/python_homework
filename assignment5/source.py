@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+''' 
+    -- README --
+    This script is incomplete and it has been handed in late.  I understand that this will result in a loss of points.
+    
+    I am turning it in to demonstrate that I have actually done part of the work.  I did not complete the entire assignment because I ran out of time during the Thanksgiving holiday.  This is an explanation, not an excuse.
+'''
+
 import wx
     
     
