@@ -2,6 +2,27 @@
 
 #import 
 
+
+def problemData():
+    '''
+    Tool name
+        Hammer
+        Saw
+        Screwdriver
+        Wrench
+    Quantity
+        76
+        88
+        106
+        34
+    Cost
+        11.99
+        12.00
+        6.99
+        7.50
+    '''
+    pass
+
 def hardware():
      '''You are the owner of a hardware store and have to keep an inventory that can tell you what
      tools you have, how many of each tools you have and the cost of each tool.
