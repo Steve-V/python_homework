@@ -25,12 +25,19 @@ def problemData():
 
 def firstRun():
     '''See if the database file exists'''
+    # Cause an error if the file doesn't exist
     try:
-        open("tools.db")
+        db_conn = sqlite3.connect("tools.db")
+        db_curr = db_conn.cursor()
+        db_curr.execute( "SELECT * FROM inventory;" )
+        db_result = db_curr.fetchall()
+    
+    # An error occurred, this is the first run
     except:
-        return False
-    else:
         return True
+    # No error occurred, this is not the first run
+    else:
+        return False
 
 def createDatabase():
     '''Connect to and initialize the database'''
@@ -46,7 +53,27 @@ def createDatabase():
     
     db_conn.commit()
 
-def getCommand(whatType):
+def addNewTool():
+    '''Add a new tool to the database'''
+    try:
+        newToolName = str(input("New Tool Name: ") )
+        newQuantity = int(input("Quantity: " ) )
+        newCost = float(input("Unit Cost: " ) )
+    except ValueError:
+        print("Error!")
+        return
+    
+    commandTuple = (newToolName, newQuantity, newCost)
+    
+    db_conn = sqlite3.connect("tools.db")
+    db_curr = db_conn.cursor()
+
+    db_curr.execute( "INSERT INTO 'inventory' VALUES (?,?,?);", commandTuple )
+    
+    db_conn.commit()
+    
+
+def getCommand():
     '''Find out what the user wants us to do'''
     
     # Set up the question
