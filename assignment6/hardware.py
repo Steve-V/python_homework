@@ -153,33 +153,9 @@ def hardware():
             changeTool()
         else:
             again = False
-     
-
-def barchart():
-    '''
-     Using matplotlib for Python, draw a barchart for the following information
-        Month
-            April
-            May
-            June
-        Number of Visitors(Adult)
-            300
-            500
-            700
-        Number of Visitors(Children)
-            200
-            600
-            600
-    '''
-    
-    pass
-
-
-
 
 def main():
     hardware()
-    #barchart()
     
     
 # Remember to unindent this line!
