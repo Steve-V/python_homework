@@ -72,6 +72,14 @@ def addNewTool():
     
     db_conn.commit()
     
+def showTool():
+    '''Show the data about a tool'''
+    pass
+
+def changeTool():
+    '''Change the data about a tool'''
+    pass
+
 
 def getCommand():
     '''Find out what the user wants us to do'''
