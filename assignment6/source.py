@@ -67,18 +67,38 @@ def addNewTool():
     
     db_conn = sqlite3.connect("tools.db")
     db_curr = db_conn.cursor()
-
-    db_curr.execute( "INSERT INTO 'inventory' VALUES (?,?,?);", commandTuple )
+    
+    try:
+        db_curr.execute( "INSERT INTO 'inventory' VALUES (?,?,?);", commandTuple )
+    except sqlite3.IntegrityError:
+        print("\nThat tool already exists!\n")
+        return
     
     db_conn.commit()
     
 def showTool():
     '''Show the data about a tool'''
-    pass
+    searchString = str(input("Search for: ") )
+    commandTuple = (searchString,)
+    
+    db_conn = sqlite3.connect("tools.db")
+    db_curr = db_conn.cursor()
+
+    db_curr.execute( "SELECT * FROM inventory WHERE toolName = (?);", commandTuple )
+    
+    db_result = db_curr.fetchall()
+    
+    if not db_result:
+        print("No data found")
+        return
+    
+    toolData = db_result[0]
+    
+    print("\nTool: {}\nQuantity: {}\nCost: {}\n".format( toolData[0], toolData[1], toolData[2] ) )
 
 def changeTool():
     '''Change the data about a tool'''
-    pass
+    print("Changetool")
 
 
 def getCommand():
