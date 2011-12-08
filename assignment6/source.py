@@ -76,9 +76,11 @@ def addNewTool():
     
     db_conn.commit()
     
-def showTool():
+def showTool(searchString=''):
     '''Show the data about a tool'''
-    searchString = str(input("Search for: ") )
+    
+    if not searchString:
+        searchString = str(input("Search for: ") )
     commandTuple = (searchString,)
     
     db_conn = sqlite3.connect("tools.db")
@@ -98,7 +100,7 @@ def showTool():
 
 def changeTool():
     '''Change the data about a tool'''
-    print("Changetool")
+    
 
 
 def getCommand():
