@@ -24,15 +24,42 @@ def problemData():
     pass
 
 def firstRun():
+    '''See if the database file exists'''
     try:
-        open("tgg.db")
+        open("tools.db")
     except:
         return False
     else:
         return True
 
-def showMenu():
-    print("MENU.  What do?!!")
+def createDatabase():
+    '''Connect to and initialize the database'''
+    
+    db_conn = sqlite3.connect("tools.db")
+    db_curr = db_conn.cursor()
+
+    db_curr.execute( "CREATE TABLE 'inventory' ('toolName' TEXT PRIMARY KEY, 'quantity' INTEGER, 'cost' REAL);" )
+    db_curr.execute( "INSERT INTO 'inventory' VALUES ('Hammer','76','11.99');" )
+    db_curr.execute( "INSERT INTO 'inventory' VALUES ('Saw','88','12.00');" )
+    db_curr.execute( "INSERT INTO 'inventory' VALUES ('Screwdriver','106','6.99');" )
+    db_curr.execute( "INSERT INTO 'inventory' VALUES ('Wrench','34','7.50');" )
+    
+    db_conn.commit()
+
+def getCommand(whatType):
+    '''Find out what the user wants us to do'''
+    
+    # Set up the question
+    ask = "(1) - Add new tool\n(2) - Tool Lookup\n(3) - Update Tool\n(4) - Exit\nCommand: "
+    valid = ['1','2','3']
+    
+    # Talk to the user
+    command = input(ask)
+    
+    # Validity check
+    if command.strip() not in valid:
+        return None
+    return command
     
 def hardware():
     ''' Run hardware store database '''
@@ -42,19 +69,17 @@ def hardware():
     
     again = True
     while again:
-        command = showMenu()
+        command = getCommand()
         
-        if command == "addTool":
+        if command == "1":
             addNewTool()
-        elif command == "showTool":
+        elif command == "2":
             showTool()
-        elif command == "changeTool":
+        elif command == "3":
             changeTool()
         else:
             again = False
      
-     
-    pass
 
 def barchart():
     '''
