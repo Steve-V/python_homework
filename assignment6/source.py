@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-#import 
+import sqlite3
 
 
 def problemData():
@@ -23,17 +23,35 @@ def problemData():
     '''
     pass
 
+def firstRun():
+    try:
+        open("tgg.db")
+    except:
+        return False
+    else:
+        return True
+
+def showMenu():
+    print("MENU.  What do?!!")
+    
 def hardware():
-     '''You are the owner of a hardware store and have to keep an inventory that can tell you what
-     tools you have, how many of each tools you have and the cost of each tool.
-     Create a database called Hardware_Store and a table called inventory with primary key
-     Tool_name with the following data.
-     Write a program with SQL commands to
-     a) Insert details of a new tool
-     b) Retrieve data of a tool and display
-     c) Provide option to update tool information(Quality and cost)
-     '''
-     
+    ''' Run hardware store database '''
+    
+    if firstRun():
+        createDatabase()
+    
+    again = True
+    while again:
+        command = showMenu()
+        
+        if command == "addTool":
+            addNewTool()
+        elif command == "showTool":
+            showTool()
+        elif command == "changeTool":
+            changeTool()
+        else:
+            again = False
      
      
     pass
@@ -62,7 +80,7 @@ def barchart():
 
 def main():
     hardware()
-    barchart()
+    #barchart()
     
     
 # Remember to unindent this line!
