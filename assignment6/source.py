@@ -101,8 +101,25 @@ def showTool(searchString=''):
 def changeTool():
     '''Change the data about a tool'''
     
+    try:
+        newToolName = str(input("Tool Name: ") )
+        newQuantity = int(input("Quantity: " ) )
+        newCost = float(input("Unit Cost: " ) )
+    except ValueError:
+        print("Error!")
+        return
+    
+    commandTuple = (newQuantity, newCost, newToolName)
+    
+    db_conn = sqlite3.connect("tools.db")
+    db_curr = db_conn.cursor()
 
-
+    db_curr.execute( "UPDATE inventory SET quantity = ?, cost = ? WHERE toolName = ?;", commandTuple )
+    
+    db_conn.commit()
+    
+    showTool(newToolName)
+    
 def getCommand():
     '''Find out what the user wants us to do'''
     
