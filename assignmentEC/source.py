@@ -141,7 +141,30 @@ def dbase():
             print('\n')
     
     def showDetail():
-        print("Nothing yet")
+        ''' Get Detail about a particular WIN '''
+        
+        # Open the database
+        db_conn = sqlite3.connect("univ.db")
+        db_curr = db_conn.cursor()
+        
+        # Figure out who we want
+        request = input("WIN: ")
+        
+        # Get their personal info
+        for person in db_curr.execute( "SELECT firstname,lastname FROM students WHERE win = ?;", (request,) ):
+            print("First Name: {}\nLast Name: {}\nEnrolled in:".format(person[0],person[1]) )
+        
+        # Get which courses they are in
+        
+        db_curr.execute( "SELECT coursenum FROM enrolled WHERE win = ?;", (request,) )
+        
+        coursesEnrolled = db_curr.fetchall()
+        
+        for eachitem in coursesEnrolled:
+            #print(eachitem[0])
+            print("   " + db_curr.execute( "SELECT description FROM courses WHERE coursenum = ?;", (eachitem[0],) ).fetchone()[0] )
+        
+        print('')
     # ======================================
     
     if firstRun():
@@ -160,15 +183,9 @@ def dbase():
             again = False
 
 
-
-
-
-
-
-
 def main():
-    #computeEx()
-    #hanoi()
+    computeEx()
+    hanoi()
     dbase()
     
 # Remember to unindent this line!
