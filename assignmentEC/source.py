@@ -40,9 +40,15 @@ def hanoi():
     print("Total number of moves: {}".format( int( math.pow(2,totalDiscs) - 1 ) ) )
     
 
+def dbase():
+    ''' Do some database operations '''
+    import sqlite3
+    
+
 def main():
     #computeEx()
-    hanoi()
+    #hanoi()
+    dbase()
     
 # Remember to unindent this line!
 if __name__ == '__main__':
