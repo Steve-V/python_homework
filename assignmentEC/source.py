@@ -3,6 +3,7 @@
 import math
 
 def getBS():
+    '''Generate some BS to serve as the course description...'''
     import random
     return("BS" + str(random.choice( range(1,999) ) ) )
 
