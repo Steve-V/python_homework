@@ -48,6 +48,21 @@ def dbase():
     ''' Do some database operations '''
     import sqlite3
     
+    def getCommand():
+        '''Find out what the user wants us to do'''
+        
+        # Set up the question
+        ask = "(1) - Show all WINs\n(2) - Show Detail\n(3) - Exit\nCommand: "
+        valid = ['1','2']
+        
+        # Talk to the user
+        command = input(ask)
+        
+        # Validity check
+        if command.strip() not in valid:
+            return None
+        return command
+    
     def firstRun():
         '''See if the database file exists'''
         # Cause an error if the file doesn't exist
@@ -109,12 +124,40 @@ def dbase():
                 db_curr.execute( "INSERT INTO 'enrolled' VALUES (?,?,?);", (None, win, eachcourse) )
         
         db_conn.commit()
+    
+    def showWins():
+        ''' Show all win numbers in the database '''
+        
+        # Open the database
+        db_conn = sqlite3.connect("univ.db")
+        db_curr = db_conn.cursor()
+        db_curr.execute( "SELECT win FROM students;" )
+        db_result = db_curr.fetchall()
 
+        if (db_result):
+            print("Available WIN Numbers: \n")
+            for eachrow in db_result:
+                print(eachrow[0])
+            print('\n')
+    
+    def showDetail():
+        print("Nothing yet")
+    # ======================================
+    
     if firstRun():
         createDatabase()
         populateDatabase()
-
     
+    again = True
+    while again:
+        command = getCommand()
+        
+        if command == "1":
+            showWins()
+        elif command == "2":
+            showDetail()
+        else:
+            again = False
 
 
 
