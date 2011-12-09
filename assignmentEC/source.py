@@ -52,7 +52,7 @@ def dbase():
         '''Find out what the user wants us to do'''
         
         # Set up the question
-        ask = "(1) - Show all WINs\n(2) - Show Detail\n(3) - Exit\nCommand: "
+        ask = "\n(1) - Show all WINs\n(2) - Show Detail\n(3) - Exit\nCommand: "
         valid = ['1','2']
         
         # Talk to the user
@@ -114,12 +114,14 @@ def dbase():
             # Get rid of the newlines
             courses.append( courses.pop().strip() )
             
+            # Insert the values
             db_curr.execute( "INSERT INTO 'students' VALUES (?,?,?);", (win, firstname, lastname)  )
             
             for eachcourse in courses:
                 try:
                     db_curr.execute( "INSERT INTO 'courses' VALUES (?,?);", (eachcourse, getBS() ) )
                 except sqlite3.IntegrityError:
+                    # This course has already been added
                     pass
                 db_curr.execute( "INSERT INTO 'enrolled' VALUES (?,?,?);", (None, win, eachcourse) )
         
@@ -131,9 +133,12 @@ def dbase():
         # Open the database
         db_conn = sqlite3.connect("univ.db")
         db_curr = db_conn.cursor()
+        
+        # Get all the win numbers
         db_curr.execute( "SELECT win FROM students;" )
         db_result = db_curr.fetchall()
-
+        
+        # Print them
         if (db_result):
             print("Available WIN Numbers: \n")
             for eachrow in db_result:
@@ -155,22 +160,23 @@ def dbase():
             print("First Name: {}\nLast Name: {}\nEnrolled in:".format(person[0],person[1]) )
         
         # Get which courses they are in
-        
         db_curr.execute( "SELECT coursenum FROM enrolled WHERE win = ?;", (request,) )
-        
+
         coursesEnrolled = db_curr.fetchall()
         
         for eachitem in coursesEnrolled:
-            #print(eachitem[0])
+            # Now pay attention...
             print("   " + db_curr.execute( "SELECT description FROM courses WHERE coursenum = ?;", (eachitem[0],) ).fetchone()[0] )
         
         print('')
     # ======================================
     
+    # I hope I don't need to explain this...
     if firstRun():
         createDatabase()
         populateDatabase()
     
+    # Duh...
     again = True
     while again:
         command = getCommand()
